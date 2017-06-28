@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  resources :callforward, only: %i[create]
+  resources :call_forward, only: %i[create]
 end
