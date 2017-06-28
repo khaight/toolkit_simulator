@@ -1,4 +1,4 @@
-class CallForward < ActionController::API
+class CallForwardController < ActionController::API
   def create
     case params[:request_type]
     when 'CallStart'
