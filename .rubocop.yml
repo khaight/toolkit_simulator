@@ -1,0 +1,21 @@
+AllCops:
+  Exclude:
+    - 'Gemfile'
+Documentation:
+  Enabled: false
+LineLength:
+  Max: 140
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
+Style/RaiseArgs:
+  EnforcedStyle: compact
+Metrics/AbcSize:
+  Enabled: false
+Metrics/MethodLength:
+  Max: 20
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'db/**/*.rb'
+    - 'spec/**/*.rb'
