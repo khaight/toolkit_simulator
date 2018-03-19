@@ -2,9 +2,9 @@ class PlayAudioDtmfNotifyController < ActionController::API
   def create
     case params[:request_type]
     when 'CallStart'
-      render json: { response_type: 'PlayAudio', dtmf: true, notify_no_input: true, num_digits: 1, audio_list: ['https://toolkit-simulator.herokuapp.com/audio/playaudiodtmf.mp3'] }
+      render json: { response_type: 'PlayAudio', dtmf: true, notify_no_input: true, num_digits: 1, audio_list: ['https://toolkit-simulator.herokuapp.com/audio/playaudiodtmf.mp3', 'this is a first text to speach', 'this is a second text to speach'] }
     when 'KeyPress'
-      render json: { response_type: 'PlayAudio', audio_list: ['https://toolkit-simulator.herokuapp.com/audio/responseaudio.mp3'] }
+      render json: { response_type: 'Forward', forward_to: '14155150440' }
     when 'NoInput'
       render json: { response_type: 'PlayAudio', notify_no_input: true, speech_hints: 'zoove, starstar, mobile', speech: true, timeout: 1, finish_on_key: '#', audio_list: ['https://toolkit-simulator.herokuapp.com/audio/playaudiospeech.mp3'] }
     when 'Termination'
