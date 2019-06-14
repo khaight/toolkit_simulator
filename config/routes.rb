@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :play_audio_speech, only: %i[create]
   resources :play_audio_dtmf_notify, only: %i[create]
   resources :connect, only: %i[create]
+  resources :nola, only: %i[create]
 end
