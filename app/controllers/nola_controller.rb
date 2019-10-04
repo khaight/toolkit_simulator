@@ -2,9 +2,9 @@ class NolaController < ActionController::API
   def create
     case params[:request_type]
     when 'CallStart'
-      render json: { response_type: 'PlayAudio', gather_after: 'false', dtmf: 'true', num_digits: 1, audio_list: ['https://toolkit-simulator.herokuapp.com/audio/nola.mp3'] }
+      render json: { response_type: 'PlayAudio', gather_after: 'false', dtmf: 'true', num_digits: 1, audio_list: ['https://toolkit-simulator.herokuapp.com/audio/nola.wav'] }
     when 'KeyPress'
-      render json: { response_type: 'PlayAudio', audio_list: ['https://toolkit-simulator.herokuapp.com/audio/nola.mp3'] }
+      render json: { response_type: 'PlayAudio', audio_list: ['https://toolkit-simulator.herokuapp.com/audio/nola_legal.wav'] }
     when 'Termination'
     else
       Rails.logger.error('unable to get request type')
