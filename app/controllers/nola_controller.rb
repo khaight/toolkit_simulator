@@ -3,9 +3,8 @@ class NolaController < ActionController::API
     case params[:request_type]
     when 'CallStart'
       render json: { response_type: 'PlayAudio', gather_after: 'false', dtmf: 'true', num_digits: 1, audio_list: ['https://toolkit-simulator.herokuapp.com/audio/nola/main.wav'] }
-      Thread.new do
-        sms(params[:mdn]
-      end
+      thread = Thread.new { sms(params[:mdn]) }
+      thread.join
     when 'KeyPress'
       if params[:key_pressed].to_i == 1
         render json: { response_type: 'PlayAudio', dtmf: 'false', audio_list: ['https://toolkit-simulator.herokuapp.com/audio/nola/song.wav'] }
