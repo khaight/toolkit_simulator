@@ -8,7 +8,7 @@ class NolaController < ActionController::API
       if params[:key_pressed].to_i == 1
         render json: { response_type: 'PlayAudio', dtmf: 'false', audio_list: ['https://toolkit-simulator.herokuapp.com/audio/nola/song.wav'] }
       elsif params[:key_pressed].to_i == 2
-        render json: { response_type: 'PlayAudio', dtmf: 'false', audio_list: ['https://toolkit-simulator.herokuapp.com/audio/nola/legal;.wav'] }
+        render json: { response_type: 'PlayAudio', dtmf: 'false', audio_list: ['https://toolkit-simulator.herokuapp.com/audio/nola/legal.wav'] }
       else
         render json: { response_type: 'PlayAudio', gather_after: 'false', dtmf: 'true', num_digits: 1, audio_list: ['https://toolkit-simulator.herokuapp.com/audio/nola/main.wav'] }
       end
