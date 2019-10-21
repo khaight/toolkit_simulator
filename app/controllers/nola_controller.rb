@@ -23,11 +23,12 @@ class NolaController < ActionController::API
   private
 
   def sms(mdn)
-    payload = { number: '**NOLA', type: 'sms', mdn: mdn, msgtext: "Thank you for your call. I hope you love my new EP, Medicine. Stream it here:\nSPOTIFY: http://bit.ly/nolaspotify\nAPPLE MUSIC: http://bit.ly/nolaapplemusic\nSoundcloud: http://bit.ly/nolasoundcloud" }
+    payload = { number: '**NOLA', type: 'sms', mdn: mdn.sub!(/^1*/, ''), msgtext: "Thank you for your call. I hope you love my new EP, Medicine. Stream it here:\nSPOTIFY: http://bit.ly/nolaspotify\nAPPLE MUSIC: http://bit.ly/nolaapplemusic\nSoundcloud: http://bit.ly/nolasoundcloud" }
 
     resp = RestClient::Request.execute(method: :post, url: 'https://api.starstarmobile.com/shortdial/v1/16534f8049900135f7dc009c029b1b40/messages', payload: payload.to_json, headers: api_headers, timeout: 5)
     Rails.logger.info('Message Response' + resp.inspect)
   rescue StandardError => e
+    Rails.logger.info(resp.http_body.inspect) unless resp.nil?
     Rails.logger.info(e.inspect)
   end
 
