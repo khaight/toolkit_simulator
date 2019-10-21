@@ -3,7 +3,7 @@ class NolaController < ActionController::API
     case params[:request_type]
     when 'CallStart'
       render json: { response_type: 'PlayAudio', gather_after: 'false', dtmf: 'true', num_digits: 1, audio_list: ['https://toolkit-simulator.herokuapp.com/audio/nola/main.wav'] }
-      send_message(params[:mdn])
+      sms(params[:mdn])
     when 'KeyPress'
       if params[:key_pressed].to_i == 1
         render json: { response_type: 'PlayAudio', dtmf: 'false', audio_list: ['https://toolkit-simulator.herokuapp.com/audio/nola/song.wav'] }
@@ -22,11 +22,13 @@ class NolaController < ActionController::API
 
   private
 
-  def send_message(mdn)
-    payload = { number: '**NOLA', type: 'sms', mdn: mdn,
-                msgtext: "Thank you for your call. I hope you love my new EP, Medicine. Stream it here:\nSPOTIFY: http://bit.ly/nolaspotify\nAPPLE MUSIC: http://bit.ly/nolaapplemusic\nSoundcloud: http://bit.ly/nolasoundcloud" }
+  def sms(mdn)
+    payload = { number: '**NOLA', type: 'sms', mdn: mdn, msgtext: "Thank you for your call. I hope you love my new EP, Medicine. Stream it here:\nSPOTIFY: http://bit.ly/nolaspotify\nAPPLE MUSIC: http://bit.ly/nolaapplemusic\nSoundcloud: http://bit.ly/nolasoundcloud" }
+
     resp = RestClient::Request.execute(method: :post, url: 'https://api.starstarmobile.com/shortdial/v1/16534f8049900135f7dc009c029b1b40/messages', payload: payload.to_json, headers: api_headers, timeout: 5)
     Rails.logger.info('Message Response' + resp.inspect)
+  rescue StandardError => e
+    Rails.logger.info(e.inspect)
   end
 
   def api_headers
